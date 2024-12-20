@@ -18,3 +18,5 @@ You're ready to chat with the Wiki!
 
 To use TerrarAI, simply type `/ai <your query>` in the chat. For example, `/ai how do i spawn planterra` will tell you how to:
 
+![How to spawn Planterra Part 0](https://github.com/SirTenzin/TerrarAI/blob/master/planterra%201.png?raw=true)
+![How to spawn Planterra Part 1](https://github.com/SirTenzin/TerrarAI/blob/master/planterra%200.png?raw=true)
