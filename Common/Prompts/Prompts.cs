@@ -1,15 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using GroqSharp;
+using GroqSharp.Models;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using TerrarAI.Common.Configs;
-using Terraria.ModLoader;
-using GroqSharp;
-using GroqSharp.Models;
 
 namespace TerrarAI.Common
 {
@@ -84,9 +78,8 @@ namespace TerrarAI.Common
 
         public async static Task<JsonNode> buildStructuredGroqRequest(string prompt, string message, string jsonStructure, TerrarAIModConfig config)
         {
-            var apiKey = Environment.GetEnvironmentVariable(config.ApiKey);
 
-            IGroqClient groqClient = new GroqClient(apiKey, config.Model)
+            IGroqClient groqClient = new GroqClient(config.ApiKey, config.Model)
                 .SetTemperature(config.Temperature)
                 .SetMaxTokens(config.MaxTokens)
                 .SetStructuredRetryPolicy(2);

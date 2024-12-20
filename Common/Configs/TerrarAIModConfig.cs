@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader.Config;
 
 namespace TerrarAI.Common.Configs
@@ -28,7 +24,7 @@ namespace TerrarAI.Common.Configs
         [Range(0, 100)]
         [TooltipKey("$TerrarAIModConfig.Temperature.Tooltip")]
         public int Temperature { get; set; }
-         
+
         [LabelKey("$TerrarAIModConfig.MaxTokens.Label")]
         [TooltipKey("$TerrarAIModConfig.MaxTokens.Tooltip")]
         [DefaultValue(1000)]

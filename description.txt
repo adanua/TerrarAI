@@ -1,1 +1,5 @@
 Getting bored of tabbing in and tabbing out? Just send a message in chat and you'll get a lovely yappaccino from AI!
+
+All you need to do is get a free API key from the Groq website, and you're good to go!
+
+Just type /ai <your query> and it'll search the wiki for your answer!

@@ -2,8 +2,8 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 public class TerrariaMediaWiki
 {
@@ -45,7 +45,7 @@ public class TerrariaMediaWiki
         }
     }
 
-    public async Task<JsonNode> GetSections(int id)
+    public async Task<JsonNode> GetSections(string id)
     {
         string url = $"https://terraria.wiki.gg/api.php?action=parse&pageid={id}&prop=sections&format=json";
 
@@ -64,7 +64,7 @@ public class TerrariaMediaWiki
         }
     }
 
-    public async Task<string> GetWikitextForSection(int pageId, string sectionIndex)
+    public async Task<string> GetWikitextForSection(string pageId, string sectionIndex)
     {
         string url = $"https://terraria.wiki.gg/api.php?action=parse&pageid={pageId}&prop=text&section={sectionIndex}&format=json";
         string response = await client.GetStringAsync(url);
