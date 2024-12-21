@@ -31,7 +31,7 @@ namespace TerrarAI.Common
             var request = new JsonObject
             {
                 ["model"] = config.Model,
-                ["temperature"] = config.Temperature / 100,
+                ["temperature"] = (double)config.Temperature / 100.0,
                 ["max_tokens"] = config.MaxTokens,
                 ["messages"] = new JsonArray
                     {
@@ -51,11 +51,11 @@ namespace TerrarAI.Common
             return Task.FromResult(request);
         }
 
-        public static Task<JsonObject> buildDeterministicGroqRequest(string prompt, string message, TerrarAIModConfig config)
+        public static Task<JsonObject> buildDeterministicGroqRequest(string prompt, string message, TerrarAIModConfig config, bool useSubmodel = false)
         {
             var request = new JsonObject
             {
-                ["model"] = config.Model,
+                ["model"] = (useSubmodel ? config.SecondaryModel : config.Model),
                 ["temperature"] = 0.4f,
                 ["max_tokens"] = config.MaxTokens,
                 ["messages"] = new JsonArray
@@ -76,11 +76,11 @@ namespace TerrarAI.Common
             return Task.FromResult(request);
         }
 
-        public async static Task<JsonNode> buildStructuredGroqRequest(string prompt, string message, string jsonStructure, TerrarAIModConfig config)
+        public async static Task<JsonNode> buildStructuredGroqRequest(string prompt, string message, string jsonStructure, TerrarAIModConfig config, bool useSubmodel = false)
         {
 
-            IGroqClient groqClient = new GroqClient(config.ApiKey, config.Model)
-                .SetTemperature(config.Temperature)
+            IGroqClient groqClient = new GroqClient(config.ApiKey, (useSubmodel ? config.SecondaryModel : config.Model))
+                .SetTemperature((double)config.Temperature / 100.0)
                 .SetMaxTokens(config.MaxTokens)
                 .SetStructuredRetryPolicy(2);
 

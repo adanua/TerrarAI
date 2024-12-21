@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace GroqApiLibrary
+namespace TerrarAI.Libs
 {
     public class GroqApiClient : IDisposable
     {
@@ -26,7 +26,7 @@ namespace GroqApiLibrary
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
         }
 
-        public async Task<JsonObject?> CreateChatCompletionAsync(JsonObject request)
+        public async Task<JsonObject> CreateChatCompletionAsync(JsonObject request)
         {
             var response = await _httpClient.PostAsJsonAsync(BaseUrl + ChatCompletionsEndpoint, request);
 
@@ -39,7 +39,7 @@ namespace GroqApiLibrary
             return await response.Content.ReadFromJsonAsync<JsonObject>();
         }
 
-        public async IAsyncEnumerable<JsonObject?> CreateChatCompletionStreamAsync(JsonObject request)
+        public async IAsyncEnumerable<JsonObject> CreateChatCompletionStreamAsync(JsonObject request)
         {
             request["stream"] = true;
             var content = new StringContent(request.ToJsonString(), Encoding.UTF8, "application/json");
@@ -47,8 +47,8 @@ namespace GroqApiLibrary
             using var response = await _httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             using var stream = await response.Content.ReadAsStreamAsync();
-            using var reader = new System.IO.StreamReader(stream);
-            string? line;
+            using var reader = new StreamReader(stream);
+            string line;
             while ((line = await reader.ReadLineAsync()) != null)
             {
                 if (line.StartsWith("data: "))
@@ -62,8 +62,8 @@ namespace GroqApiLibrary
             }
         }
 
-        public async Task<JsonObject?> CreateTranscriptionAsync(Stream audioFile, string fileName, string model,
-            string? prompt = null, string responseFormat = "json", string? language = null, float? temperature = null)
+        public async Task<JsonObject> CreateTranscriptionAsync(Stream audioFile, string fileName, string model,
+            string prompt = null, string responseFormat = "json", string language = null, float? temperature = null)
         {
             using var content = new MultipartFormDataContent();
             content.Add(new StreamContent(audioFile), "file", fileName);
@@ -85,8 +85,8 @@ namespace GroqApiLibrary
             return await response.Content.ReadFromJsonAsync<JsonObject>();
         }
 
-        public async Task<JsonObject?> CreateTranslationAsync(Stream audioFile, string fileName, string model,
-            string? prompt = null, string responseFormat = "json", float? temperature = null)
+        public async Task<JsonObject> CreateTranslationAsync(Stream audioFile, string fileName, string model,
+            string prompt = null, string responseFormat = "json", float? temperature = null)
         {
             using var content = new MultipartFormDataContent();
             content.Add(new StreamContent(audioFile), "file", fileName);
@@ -105,13 +105,13 @@ namespace GroqApiLibrary
             return await response.Content.ReadFromJsonAsync<JsonObject>();
         }
 
-        public async Task<JsonObject?> ListModelsAsync()
+        public async Task<JsonObject> ListModelsAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{BaseUrl}/models");
             response.EnsureSuccessStatusCode();
 
             string responseString = await response.Content.ReadAsStringAsync();
-            JsonObject? responseJson = JsonSerializer.Deserialize<JsonObject>(responseString);
+            JsonObject responseJson = JsonSerializer.Deserialize<JsonObject>(responseString);
 
             return responseJson;
         }

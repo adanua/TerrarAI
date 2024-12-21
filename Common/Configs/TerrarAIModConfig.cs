@@ -8,25 +8,28 @@ namespace TerrarAI.Common.Configs
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("$TerrarAIModConfig.ConfigHeader")]
-
-        [LabelKey("$TerrarAIModConfig.APIKey.Label")]
-        [TooltipKey("$TerrarAIModConfig.APIKey.Tooltip")]
+        [LabelKey("$Mods.TerrarAI.TerrarAIModConfig.APIKey.Label")]
+        [TooltipKey("$Mods.TerrarAI.TerrarAIModConfig.APIKey.Tooltip")]
         public string ApiKey { get; set; }
 
-        [LabelKey("$TerrarAIModConfig.Model.Label")]
-        [TooltipKey("$TerrarAIModConfig.Model.Tooltip")]
+        [LabelKey("$Mods.TerrarAI.TerrarAIModConfig.Model.Label")]
+        [TooltipKey("$Mods.TerrarAI.TerrarAIModConfig.Model.Tooltip")]
         [DefaultValue("llama-3.3-70b-versatile")]
         public string Model { get; set; }
 
-        [LabelKey("$TerrarAIModConfig.Temperature.Label")]
-        [DefaultValue(0.5)]
+        [LabelKey("$Mods.TerrarAI.TerrarAIModConfig.SecondaryModel.Label")]
+        [TooltipKey("$Mods.TerrarAI.TerrarAIModConfig.SecondaryModel.Tooltip")]
+        [DefaultValue("llama-3.3-70b-specdec")]
+        public string SecondaryModel { get; set; }
+
+        [LabelKey("$Mods.TerrarAI.TerrarAIModConfig.Temperature.Label")]
+        [DefaultValue(50)]
         [Range(0, 100)]
-        [TooltipKey("$TerrarAIModConfig.Temperature.Tooltip")]
+        [TooltipKey("$Mods.TerrarAI.TerrarAIModConfig.Temperature.Tooltip")]
         public int Temperature { get; set; }
 
-        [LabelKey("$TerrarAIModConfig.MaxTokens.Label")]
-        [TooltipKey("$TerrarAIModConfig.MaxTokens.Tooltip")]
+        [LabelKey("$Mods.TerrarAI.TerrarAIModConfig.MaxTokens.Label")]
+        [TooltipKey("$Mods.TerrarAI.TerrarAIModConfig.MaxTokens.Tooltip")]
         [DefaultValue(1000)]
         public int MaxTokens { get; set; }
     }

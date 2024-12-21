@@ -8,6 +8,9 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Localization\en-US_Mods.ExampleMod.Configs.hjson" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Reference Include="GroqSharp">
 	    <HintPath>lib\GroqSharp.dll</HintPath>
 	  </Reference>

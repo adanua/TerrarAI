@@ -3,20 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Nodes;
 using TerrarAI.Common.Configs;
-using Terraria;
 using TerrarAI.Libs;
+using Terraria;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TerrarAI.Common.Commands
 {
-    internal class AICommand : ModCommand
+    internal class CalamityCommand : ModCommand
     {
-        public override string Command => "ai";
+        public override string Command => "calamity";
         public override string Description =>
-            "Get a quick response based off the Terraria Wiki on a query using AI.";
-        public override string Usage => "/ai <query>";
+            "Get a quick response based off the Calamity Wiki on a query using AI.";
+        public override string Usage => "/calamity <query>";
 
         public override CommandType Type => CommandType.Chat;
 
@@ -26,11 +26,11 @@ namespace TerrarAI.Common.Commands
             {
                 var config = ModContent.GetInstance<TerrarAIModConfig>();
                 bool hasApiKey = !string.IsNullOrEmpty(config.ApiKey);
-                double temperature = (double)config.Temperature / 100.0;
+                float temperature = config.Temperature;
                 int maxTokens = config.MaxTokens;
                 string model = config.Model;
 
-                var MediaWikiClient = new TerrariaMediaWiki();
+                var MediaWikiClient = new CalamityMediaWiki();
 
                 if (!hasApiKey)
                 {

@@ -5,20 +5,35 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-public class TerrariaMediaWiki
+public class BaseMediaWikiGG
 {
-    private static readonly HttpClient client;
+    private readonly HttpClient client;
+    protected string baseUrl { get; set; }
 
-    static TerrariaMediaWiki()
+    public BaseMediaWikiGG()
     {
         client = new HttpClient();
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        );
+    }
+
+    public void LoadWiki(string apiBaseUrl)
+    {
+        if (string.IsNullOrWhiteSpace(apiBaseUrl))
+            throw new ArgumentException(
+                "API base URL cannot be null or empty.",
+                nameof(apiBaseUrl)
+            );
+
+        baseUrl = apiBaseUrl;
     }
 
     public async Task<JsonElement> SearchWiki(string query)
     {
         // Construct the API URL
-        string url = $"https://terraria.wiki.gg/api.php?action=query&list=search&srsearch={Uri.EscapeDataString(query)}&format=json";
+        string url =
+            $"https://{baseUrl}.wiki.gg/api.php?action=query&list=search&srsearch={Uri.EscapeDataString(query)}&format=json";
 
         try
         {
@@ -47,7 +62,8 @@ public class TerrariaMediaWiki
 
     public async Task<JsonNode> GetSections(string id)
     {
-        string url = $"https://terraria.wiki.gg/api.php?action=parse&pageid={id}&prop=sections&format=json";
+        string url =
+            $"https://{baseUrl}.wiki.gg/api.php?action=parse&pageid={id}&prop=sections&format=json";
 
         try
         {
@@ -66,7 +82,8 @@ public class TerrariaMediaWiki
 
     public async Task<string> GetWikitextForSection(string pageId, string sectionIndex)
     {
-        string url = $"https://terraria.wiki.gg/api.php?action=parse&pageid={pageId}&prop=text&section={sectionIndex}&format=json";
+        string url =
+            $"https://{baseUrl}.wiki.gg/api.php?action=parse&pageid={pageId}&prop=text&section={sectionIndex}&format=json";
         string response = await client.GetStringAsync(url);
         var json = JsonNode.Parse(response);
         var text = json?["parse"]?["text"]?["*"]?.ToString();
@@ -74,4 +91,8 @@ public class TerrariaMediaWiki
         return plainText;
     }
 
+    public void Dispose()
+    {
+        client.Dispose();
+    }
 }

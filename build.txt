@@ -1,4 +1,4 @@
-displayName = TerrarAI- Chat with the wiki
+displayName = TerrarAI - Chat with the wiki
 author = amianthus
-version = 0.1
+version = 0.1.2
 dllReferences = GroqSharp

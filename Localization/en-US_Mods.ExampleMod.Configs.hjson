@@ -1,0 +1,25 @@
+TerrarAIModConfig: {
+	ConfigHeader: Groq API Configuration
+
+	APIKey: {
+		Label: API Key
+		Tooltip: The key used to access the API
+	}
+
+	Model: {
+		Label: Model
+		Tooltip: The model used for AI inference
+	}
+
+	Temperature: {
+		Label: Temperature
+		Tooltip: Controls the randomness of the AI
+	}
+
+	MaxTokens: {
+		Label: Max Tokens
+		Tooltip: The maximum number of tokens for the AI response
+	}
+}
+
+Configs.TerrarAIModConfig.DisplayName: Terrar AI Mod Config he he

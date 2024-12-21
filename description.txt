@@ -3,3 +3,6 @@ Getting bored of tabbing in and tabbing out? Just send a message in chat and you
 All you need to do is get a free API key from the Groq website, and you're good to go!
 
 Just type /ai <your query> and it'll search the wiki for your answer!
+You can also type /calamity <your query> or /thorium <your query> to search the Calamity/Thorium wiki!
+
+You can find a tutorial on how to setup here: https://forums.terraria.org/index.php?threads/terrarai-an-easy-way-to-chat-with-the-wiki.140148/

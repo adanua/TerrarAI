@@ -8,18 +8,23 @@ TerrarAIModConfig: {
 
 	Model: {
 		Label: Model
-		Tooltip: The model used for AI inference
+		Tooltip: The model used for AI responses
+	}
+
+	SecondaryModel: {
+		Label: Secondary Model
+		Tooltip: The model used to rerank the AI pages and other sub tasks. This saves token limits
 	}
 
 	Temperature: {
 		Label: Temperature
-		Tooltip: Controls the randomness of the AI
+		Tooltip: Controls the randomness of the AI (Very Exact: 0 | Very Random: 100)
 	}
 
 	MaxTokens: {
 		Label: Max Tokens
-		Tooltip: The maximum number of tokens for the AI response
+		Tooltip: The maximum number of tokens for the AI response (1 token is usually 4-10 characters)
 	}
 }
 
-Configs.TerrarAIModConfig.DisplayName: Terrar AI Mod Config
+Configs.TerrarAIModConfig.DisplayName: GroqAPI Configuration
